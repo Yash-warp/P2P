@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-deep-purple: #30105E;
+  --color-violet: #7C3AED;
+  --color-light-lavender: #C4B5FD;
+  --color-very-light-lavender: #FAF8FF;
+  --color-soft-lavender: #E9D5FF;
+}
+
+@layer base {
+  body {
+    background-color: #FAF8FF;
+    color: #30105E;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .font-display {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
+    color: #30105E;
+  }
+}
+
+/* Custom Neumorphic and tactile styling with Deep Purple + Lavender palette */
+.neu-pill {
+  background: rgba(250, 248, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(233, 213, 255, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.neu-card {
+  background: #ffffff;
+  border: 1px solid rgba(233, 213, 255, 0.7);
+  box-shadow: 0 10px 25px -5px rgba(48, 16, 94, 0.05), 0 8px 10px -6px rgba(124, 58, 237, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -8px rgba(48, 16, 94, 0.1), 0 10px 15px -4px rgba(124, 58, 237, 0.06);
+  border-color: #7C3AED;
+}
+
+.neu-flat {
+  background: #FAF8FF;
+  box-shadow: 8px 8px 22px rgba(196, 181, 253, 0.28), -8px -8px 22px rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(233, 213, 255, 0.85);
+}
+
+.neu-pressed {
+  box-shadow: inset 2px 2px 5px rgba(196, 181, 253, 0.35), inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+.badge-lavender {
+  background-color: #C4B5FD;
+  color: #30105E;
+  font-weight: 700;
+}
+
+.badge-soft {
+  background-color: #E9D5FF;
+  color: #30105E;
+  border: 1px solid rgba(196, 181, 253, 0.7);
+}
+
+.badge-violet {
+  background-color: #7C3AED;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Custom scrollbar with lavender accents */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8FF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4B5FD;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7C3AED;
+}
+
+/* Infinite Marquee Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
