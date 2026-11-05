@@ -34,7 +34,7 @@ export const TrustSafety = () => {
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-[#30105E]/75 font-medium">
-            Rentic is engineered with multiple safety layers so you can rent out or borrow expensive equipment with complete peace of mind.
+            Lendit is engineered with multiple safety layers so you can rent out or borrow expensive equipment with complete peace of mind.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export const TrustSafety = () => {
               {/* Verified check indicator */}
               <div className="mt-6 pt-4 border-t border-[#E9D5FF]/60 flex items-center gap-1.5 text-xs font-bold text-[#30105E]">
                 <CheckCircle className="w-4 h-4 text-[#7C3AED]" />
-                <span>Rentic Safety Guarantee</span>
+                <span>Lendit Safety Guarantee</span>
               </div>
             </div>
           ))}

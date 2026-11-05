@@ -86,7 +86,7 @@ export const FeedView = () => {
     return CATEGORY_FALLBACK_IMAGES[cat] || 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80';
   };
 
-  // Map Rentic categories to product dataset categories
+  // Map Lendit categories to product dataset categories
   const categoryMap = {
     'Electronics': ['cameras', 'drones', 'audio', 'gaming'],
     'Sports': ['bikes'],
@@ -127,7 +127,7 @@ export const FeedView = () => {
   return (
     <div className="min-h-screen bg-[#FAF8FF] text-[#30105E] pb-24 selection:bg-[#C4B5FD] selection:text-[#30105E]">
       
-      {/* Exact Rentic Feed Sticky Header */}
+      {/* Exact Lendit Feed Sticky Header */}
       <header className="sticky top-0 z-40 bg-[#FAF8FF]/90 backdrop-blur-2xl px-4 sm:px-6 pt-5 pb-3.5 border-b border-[#E9D5FF]/70 shadow-xs">
         <div className="max-w-6xl mx-auto">
           
@@ -332,7 +332,7 @@ export const FeedView = () => {
           </span>
         </div>
 
-        {/* Product Cards Grid - 1:1 Rentic Grid Layout */}
+        {/* Product Cards Grid - 1:1 Lendit Grid Layout */}
         {filteredProducts.length > 0 ? (
           <>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    service: 'Rentic P2P Marketplace Backend',
+    service: 'Lendit P2P Marketplace Backend',
     version: '1.0.0',
     uptime: Math.round(process.uptime()),
     timestamp: new Date().toISOString()
@@ -70,7 +70,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`
 ==================================================
-🚀 Rentic Marketplace Backend Server Running!
+🚀 Lendit Marketplace Backend Server Running!
 📡 Port:    http://localhost:${PORT}
 🩺 Health:  http://localhost:${PORT}/api/health
 📦 API:     http://localhost:${PORT}/api/listings

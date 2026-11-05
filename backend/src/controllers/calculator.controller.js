@@ -5,7 +5,7 @@ export const calculateEarnings = (req, res) => {
   const rate = Math.max(Number(dailyRate), 100);
 
   const monthlyGross = days * rate;
-  const platformFeePercentage = 0.10; // 10% Rentic platform fee
+  const platformFeePercentage = 0.10; // 10% Lendit platform fee
   const netMonthly = Math.round(monthlyGross * (1 - platformFeePercentage));
   const netAnnual = netMonthly * 12;
 

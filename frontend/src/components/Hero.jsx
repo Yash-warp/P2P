@@ -51,7 +51,7 @@ export const Hero = () => {
 
         {/* Main Headline */}
         <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl tracking-tight text-[#30105E] max-w-4xl mx-auto leading-[1.1] sm:leading-[1.12]">
-          Rentic India.{' '}
+          Lendit India.{' '}
           <span className="block mt-1 sm:mt-2 text-[#30105E]">
             Rent anything,{' '}
             <span className="relative inline-block">

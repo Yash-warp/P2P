@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { BrandLogo } from './BrandLogo';
 import { ShieldCheck, MapPin, Heart, Mail, Phone } from 'lucide-react';
 
 export const Footer = () => {
@@ -18,15 +19,10 @@ export const Footer = () => {
               onClick={() => navigateTo('home')}
               className="flex items-center gap-2.5 cursor-pointer group select-none"
             >
-              <div className="w-9 h-9 rounded-xl bg-[#230b45] border border-[#E9D5FF]/20 flex items-center justify-center shadow-sm">
-                <svg className="w-5 h-5 text-[#C4B5FD]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                  <circle cx="12" cy="12" r="3" fill="#C4B5FD" />
-                </svg>
-              </div>
+              <BrandLogo size={36} />
               <div className="flex items-center gap-1.5">
                 <span className="font-display font-black text-xl tracking-tight text-white">
-                  Rentic<span className="text-[#C4B5FD]">.</span>
+                  Lendit<span className="text-[#C4B5FD]">.</span>
                 </span>
                 <span className="bg-[#C4B5FD] text-[#30105E] text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md">
                   India
@@ -40,7 +36,7 @@ export const Footer = () => {
 
             <div className="flex items-center gap-2 text-xs text-[#E9D5FF]/80 font-medium">
               <Mail className="w-4 h-4 text-[#C4B5FD]" />
-              <span>support@rentic.in</span>
+              <span>support@lendit.in</span>
               <span className="text-[#E9D5FF]/40">•</span>
               <Phone className="w-4 h-4 text-[#C4B5FD]" />
               <span>+91 80 4920 1800</span>
@@ -191,7 +187,7 @@ export const Footer = () => {
         {/* Bottom Copyright */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#E9D5FF]/70">
           <div>
-            © 2026 Rentic Technologies. All rights reserved.
+            © 2026 Lendit Technologies. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1 text-[#E9D5FF] font-semibold">

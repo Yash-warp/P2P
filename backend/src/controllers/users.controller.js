@@ -19,7 +19,7 @@ export const loginUser = (req, res) => {
   // Demo user authentication
   res.json({
     success: true,
-    message: 'Welcome back to Rentic!',
+    message: 'Welcome back to Lendit!',
     token: `demo-jwt-token-${Date.now()}`,
     data: currentUser
   });
@@ -43,7 +43,7 @@ export const registerUser = (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: 'Account created successfully! Welcome to Rentic.',
+    message: 'Account created successfully! Welcome to Lendit.',
     token: `demo-jwt-token-${Date.now()}`,
     data: currentUser
   });

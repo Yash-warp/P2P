@@ -15,6 +15,20 @@ export default {
           veryLight: "#FAF8FF",
           softLavender: "#E9D5FF",
         },
+        lendit: {
+          bg: "#FAF8FF",
+          card: "#FFFFFF",
+          primary: "#30105E",
+          accent: "#7C3AED",
+          highlight: "#C4B5FD",
+          soft: "#E9D5FF",
+          veryLight: "#FAF8FF",
+          dark: "#30105E",
+          darker: "#1E0B3D",
+          muted: "#6B5E87",
+          border: "#E9D5FF",
+          subtle: "#F5F0FF"
+        },
         rentic: {
           bg: "#FAF8FF",
           card: "#FFFFFF",

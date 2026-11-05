@@ -22,7 +22,7 @@ export const AppProvider = ({ children }) => {
 
   // User State
   const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('rentic_user');
+    const saved = localStorage.getItem('lendit_user') || localStorage.getItem('rentic_user');
     return saved ? JSON.parse(saved) : {
       id: 'user-current',
       name: 'Yash Sharma',
@@ -72,20 +72,20 @@ export const AppProvider = ({ children }) => {
 
   // Products State
   const [products, setProducts] = useState(() => {
-    const saved = localStorage.getItem('rentic_products');
+    const saved = localStorage.getItem('lendit_products') || localStorage.getItem('rentic_products');
     const raw = saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
     return raw.map(normalizeProduct);
   });
 
   // Wishlist State
   const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem('rentic_wishlist');
+    const saved = localStorage.getItem('lendit_wishlist') || localStorage.getItem('rentic_wishlist');
     return saved ? JSON.parse(saved) : ['prod-1', 'prod-4'];
   });
 
   // User Rentals (As a Renter)
   const [myRentals, setMyRentals] = useState(() => {
-    const saved = localStorage.getItem('rentic_my_rentals');
+    const saved = localStorage.getItem('lendit_my_rentals') || localStorage.getItem('rentic_my_rentals');
     return saved ? JSON.parse(saved) : [
       {
         id: 'rent-101',
@@ -128,7 +128,7 @@ export const AppProvider = ({ children }) => {
 
   // Rental Requests (As an Owner / Lender)
   const [rentalRequests, setRentalRequests] = useState(() => {
-    const saved = localStorage.getItem('rentic_requests');
+    const saved = localStorage.getItem('lendit_requests') || localStorage.getItem('rentic_requests');
     return saved ? JSON.parse(saved) : [
       {
         id: 'req-201',
@@ -176,7 +176,7 @@ export const AppProvider = ({ children }) => {
     },
     {
       id: 'conv-3',
-      participantName: 'Rentic SafeEscrow Support',
+      participantName: 'Lendit SafeEscrow Support',
       participantAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=200&q=80',
       itemTitle: 'DigiLocker Verification Verified',
       itemPrice: 0,
@@ -196,27 +196,27 @@ export const AppProvider = ({ children }) => {
 
   // Sync to local storage
   useEffect(() => {
-    localStorage.setItem('rentic_products', JSON.stringify(products));
+    localStorage.setItem('lendit_products', JSON.stringify(products));
   }, [products]);
 
   useEffect(() => {
-    localStorage.setItem('rentic_wishlist', JSON.stringify(wishlist));
+    localStorage.setItem('lendit_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
   useEffect(() => {
-    localStorage.setItem('rentic_my_rentals', JSON.stringify(myRentals));
+    localStorage.setItem('lendit_my_rentals', JSON.stringify(myRentals));
   }, [myRentals]);
 
   useEffect(() => {
-    localStorage.setItem('rentic_requests', JSON.stringify(rentalRequests));
+    localStorage.setItem('lendit_requests', JSON.stringify(rentalRequests));
   }, [rentalRequests]);
 
   useEffect(() => {
-    localStorage.setItem('rentic_user', JSON.stringify(currentUser));
+    localStorage.setItem('lendit_user', JSON.stringify(currentUser));
   }, [currentUser]);
 
   useEffect(() => {
-    localStorage.setItem('rentic_auth', isLoggedIn ? 'true' : 'false');
+    localStorage.setItem('lendit_auth', isLoggedIn ? 'true' : 'false');
   }, [isLoggedIn]);
 
   // Toast Helper

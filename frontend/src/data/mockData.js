@@ -485,7 +485,7 @@ export const TESTIMONIALS = [
     item: 'DJI Mini 3 Pro Drone',
     rating: 5,
     earnings: '₹32,000 earned',
-    quote: "Rentic's security deposit escrow gave me the confidence to rent out my drone. Borrowers treat the gear with immense respect, and customer support was instant when I had a question."
+    quote: "Lendit's security deposit escrow gave me the confidence to rent out my drone. Borrowers treat the gear with immense respect, and customer support was instant when I had a question."
   }
 ];
 

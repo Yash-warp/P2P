@@ -1,7 +1,7 @@
 {
-  "name": "rentic-backend",
+  "name": "lendit-backend",
   "version": "1.0.0",
-  "description": "Backend REST API for Rentic P2P Rental Marketplace",
+  "description": "Backend REST API for Lendit P2P Rental Marketplace",
   "main": "src/server.js",
   "type": "module",
   "scripts": {

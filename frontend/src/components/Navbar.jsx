@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { BrandLogo } from './BrandLogo';
 import { 
   ArrowUpRight, 
   Menu, 
@@ -69,17 +70,9 @@ export const Navbar = () => {
               }}
               className="flex items-center gap-2 group cursor-pointer select-none shrink-0"
             >
-              <div className="relative flex items-center justify-center transition-all scale-100">
-                <img 
-                  alt="Rentic Logo" 
-                  width={28} 
-                  height={28} 
-                  className="w-7 h-7 sm:w-8 sm:h-8 object-contain transition-transform group-hover:scale-105" 
-                  src="/logo.png" 
-                />
-              </div>
+              <BrandLogo size={32} />
               <span className="text-lg sm:text-xl font-display font-black text-[#30105E] tracking-tight">
-                rentic
+                lendit
               </span>
             </a>
 
@@ -264,8 +257,8 @@ export const Navbar = () => {
           <div className="absolute top-20 inset-x-4 max-w-md mx-auto bg-[#FAF8FF] rounded-[24px] p-6 shadow-2xl border border-[#E9D5FF] flex flex-col gap-4">
             <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Rentic Logo" className="w-6 h-6 object-contain" />
-                <span className="font-display font-black text-lg tracking-tight text-[#30105E]">rentic</span>
+                <BrandLogo size={26} />
+                <span className="font-display font-black text-lg tracking-tight text-[#30105E]">lendit</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}

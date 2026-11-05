@@ -100,7 +100,7 @@ export const HowItWorks = () => {
           </div>
 
           <h2 className="font-display font-black text-3xl sm:text-5xl text-[#30105E] tracking-tight">
-            How Rentic Works
+            How Lendit Works
           </h2>
 
           <p className="mt-3 text-base sm:text-lg text-[#30105E]/75 font-medium">

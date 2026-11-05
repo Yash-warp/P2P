@@ -16,7 +16,7 @@ export const AppDownloadCTA = () => {
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#C4B5FD] text-xs font-bold border border-white/15">
                 <Smartphone className="w-3.5 h-3.5" />
-                <span>Rentic Mobile Experience</span>
+                <span>Lendit Mobile Experience</span>
               </div>
 
               <h2 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">

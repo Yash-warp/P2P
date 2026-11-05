@@ -1,6 +1,6 @@
-# Rentic - P2P Rental Marketplace (Monorepo)
+# Lendit - P2P Rental Marketplace (Monorepo)
 
-A peer-to-peer (P2P) equipment rental marketplace inspired by Rentic India, featuring a modular architecture with separated **Frontend** and **Backend** directories.
+A peer-to-peer (P2P) equipment rental marketplace inspired by Lendit India, featuring a modular architecture with separated **Frontend** and **Backend** directories.
 
 ---
 

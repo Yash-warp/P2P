@@ -279,7 +279,7 @@ export const INITIAL_CONVERSATIONS = [
 export const INITIAL_USER = {
   id: 'usr-current',
   name: 'Yash Sharma',
-  email: 'yash@rentic.community',
+  email: 'yash@lendit.community',
   phone: '+91 98765 43210',
   avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
   location: 'Indiranagar, Bangalore',

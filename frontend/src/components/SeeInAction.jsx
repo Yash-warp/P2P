@@ -15,7 +15,7 @@ export const SeeInAction = () => {
         </div>
 
         <h2 className="font-display font-black text-3xl sm:text-5xl text-[#30105E] tracking-tight">
-          See Rentic in{' '}
+          See Lendit in{' '}
           <span className="relative inline-block">
             <span className="bg-[#C4B5FD] text-[#30105E] px-3.5 py-0.5 sm:py-1 rounded-2xl shadow-neu-pill font-display font-bold text-[85%] md:text-[80%] inline-block">
               Action
@@ -24,7 +24,7 @@ export const SeeInAction = () => {
         </h2>
 
         <p className="mt-4 text-[#30105E]/80 font-body max-w-2xl mx-auto text-base sm:text-lg leading-relaxed font-medium">
-          Watch this quick guide to learn how easy it is to rent and earn with Rentic in your neighborhood.
+          Watch this quick guide to learn how easy it is to rent and earn with Lendit in your neighborhood.
         </p>
 
         {/* Video / Interactive Player Container matching exact reference styling */}
@@ -34,7 +34,7 @@ export const SeeInAction = () => {
               <iframe
                 className="w-full h-full absolute inset-0 border-0"
                 src="https://www.youtube.com/embed/7oNQlQTxBGQ?autoplay=1&rel=0"
-                title="Rentic Explainer Video"
+                title="Lendit Explainer Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               ></iframe>
@@ -43,7 +43,7 @@ export const SeeInAction = () => {
                 {/* Poster Backdrop */}
                 <img
                   src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1400&q=80"
-                  alt="Rentic Video Preview"
+                  alt="Lendit Video Preview"
                   className="w-full h-full object-cover opacity-35 group-hover:scale-105 transition-transform duration-700"
                 />
 

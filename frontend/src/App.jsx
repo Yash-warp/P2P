@@ -51,7 +51,7 @@ export function App() {
       {/* Main Content Area */}
       <main className="flex-1">
         
-        {/* Logged In Feed View: 1:1 copy of https://www.rentic.in/feed */}
+        {/* Logged In Feed View: 1:1 copy of Lendit Feed */}
         {activeView === 'feed' && <FeedView />}
 
         {/* Marketing Landing Page (Default for logged out visitors) */}
@@ -69,13 +69,13 @@ export function App() {
             {/* Section E: Trending Near You */}
             <TrendingListings />
 
-            {/* Video Section: See Rentic in Action */}
+            {/* Video Section: See Lendit in Action */}
             <SeeInAction />
 
             {/* Section F & G: Owner Earnings Section & Rental Income Calculator */}
             <OwnerEarningsCalculator />
 
-            {/* Section H: How Rentic Works */}
+            {/* Section H: How Lendit Works */}
             <HowItWorks />
 
             {/* Section I: Trust & Safety */}
@@ -111,7 +111,7 @@ export function App() {
       {/* Global Footer (rendered ONLY when logged out on marketing pages) */}
       {!isLoggedIn && <Footer />}
 
-      {/* Persistent Rentic App Bottom Navigation Bar for ALL views when logged in */}
+      {/* Persistent Lendit App Bottom Navigation Bar for ALL views when logged in */}
       {isLoggedIn && <BottomNavBar />}
 
       {/* Booking Modal Flow */}
