@@ -12,7 +12,6 @@ import { Hero } from './components/Hero';
 import { NearbyPreview } from './components/NearbyPreview';
 import { ActivityTicker } from './components/ActivityTicker';
 import { TrendingListings } from './components/TrendingListings';
-import { SeeInAction } from './components/SeeInAction';
 import { OwnerEarningsCalculator } from './components/OwnerEarningsCalculator';
 import { HowItWorks } from './components/HowItWorks';
 import { TrustSafety } from './components/TrustSafety';
@@ -68,9 +67,6 @@ export function App() {
 
             {/* Section E: Trending Near You */}
             <TrendingListings />
-
-            {/* Video Section: See Lendit in Action */}
-            <SeeInAction />
 
             {/* Section F & G: Owner Earnings Section & Rental Income Calculator */}
             <OwnerEarningsCalculator />
