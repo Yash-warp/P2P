@@ -11,9 +11,9 @@ import activityRoutes from './routes/activity.routes.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Enable CORS for frontend Vite dev server (port 3000) and other origins
+// Enable CORS for frontend, Vercel deployments, and local dev
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: true,
   credentials: true
 }));
 
@@ -67,14 +67,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`
 ==================================================
 🚀 Lendit Marketplace Backend Server Running!
 📡 Port:    http://localhost:${PORT}
 🩺 Health:  http://localhost:${PORT}/api/health
 📦 API:     http://localhost:${PORT}/api/listings
 ==================================================
-  `);
-});
+    `);
+  });
+}
+
+export default app;
 

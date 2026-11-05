@@ -93,3 +93,4 @@ export const BrandLogo = ({ size = 32, className = '' }) => {
     </div>
   );
 };
+
