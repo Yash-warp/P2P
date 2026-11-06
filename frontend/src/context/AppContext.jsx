@@ -1,13 +1,23 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { INITIAL_PRODUCTS, LIVE_ACTIVITY_STREAM } from '../data/mockData';
 
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-  // Navigation / View State - Always lands on the marketing landing page
-  const [activeView, setActiveView] = useState('home'); // 'home', 'feed', 'marketplace', 'product-detail', 'dashboard', 'list-item', 'messages', 'how-it-works'
+  // Navigation / View State
+  const [activeView, setActiveView] = useState('home');
+  const [selectedLandingRole, setSelectedLandingRole] = useState(null);
+
+  // Landing page role selection
+  const selectLandingRole = (role) => {
+    setSelectedLandingRole(role);
+    setActiveView(role === 'borrower' ? 'home' : 'lender-home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const [selectedProductId, setSelectedProductId] = useState('prod-1');
-  const [dashboardTab, setDashboardTab] = useState('overview'); // 'overview', 'listings', 'rentals', 'requests', 'wishlist', 'earnings', 'notifications', 'profile'
+  const [dashboardTab, setDashboardTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentLocation, setCurrentLocation] = useState('Indiranagar, Bangalore');
@@ -15,7 +25,7 @@ export const AppProvider = ({ children }) => {
 
   // Modals
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login', 'signup', 'forgot'
+  const [authMode, setAuthMode] = useState('login');
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingProduct, setBookingProduct] = useState(null);
   const [toast, setToast] = useState(null);
@@ -23,13 +33,14 @@ export const AppProvider = ({ children }) => {
   // User State
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem('lendit_user') || localStorage.getItem('rentic_user');
+
     return saved ? JSON.parse(saved) : {
       id: 'user-current',
       name: 'Yash Sharma',
       email: 'yash@example.com',
       phone: '+91 98765 43210',
       avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
-      role: 'both', // 'renter', 'lender', 'both'
+      role: 'both',
       location: 'Indiranagar, Bangalore',
       verified: true,
       digilockerVerified: true,
@@ -41,12 +52,28 @@ export const AppProvider = ({ children }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Helper to normalize product properties for robust cross-component compatibility
+  // Helper to normalize product properties
   const normalizeProduct = (p) => {
-    const primaryImg = (Array.isArray(p.images) && p.images[0]) || p.image || 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80';
-    const allImgs = (Array.isArray(p.images) && p.images.length > 0) ? p.images : [primaryImg];
-    const dist = p.distance !== undefined ? p.distance : (p.distanceKm !== undefined ? p.distanceKm : 1.2);
-    const reviews = p.reviewCount !== undefined ? p.reviewCount : (p.reviewsCount !== undefined ? p.reviewsCount : 24);
+    const primaryImg =
+      (Array.isArray(p.images) && p.images[0]) ||
+      p.image ||
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80';
+
+    const allImgs =
+      (Array.isArray(p.images) && p.images.length > 0)
+        ? p.images
+        : [primaryImg];
+
+    const dist =
+      p.distance !== undefined
+        ? p.distance
+        : (p.distanceKm !== undefined ? p.distanceKm : 1.2);
+
+    const reviews =
+      p.reviewCount !== undefined
+        ? p.reviewCount
+        : (p.reviewsCount !== undefined ? p.reviewsCount : 24);
+
     const ownerObj = p.owner ? {
       ...p.owner,
       verified: p.owner.verified !== undefined ? p.owner.verified : !!p.owner.verifiedId,
@@ -86,6 +113,7 @@ export const AppProvider = ({ children }) => {
   // User Rentals (As a Renter)
   const [myRentals, setMyRentals] = useState(() => {
     const saved = localStorage.getItem('lendit_my_rentals') || localStorage.getItem('rentic_my_rentals');
+
     return saved ? JSON.parse(saved) : [
       {
         id: 'rent-101',
@@ -100,7 +128,7 @@ export const AppProvider = ({ children }) => {
         dailyRate: 350,
         totalAmount: 735,
         depositAmount: 2000,
-        status: 'approved', // 'requested', 'approved', 'active', 'completed'
+        status: 'approved',
         handoverCode: 'RENT-7829-QC',
         handoverVerified: false,
         deliveryMethod: 'Self Pickup'
@@ -129,6 +157,7 @@ export const AppProvider = ({ children }) => {
   // Rental Requests (As an Owner / Lender)
   const [rentalRequests, setRentalRequests] = useState(() => {
     const saved = localStorage.getItem('lendit_requests') || localStorage.getItem('rentic_requests');
+
     return saved ? JSON.parse(saved) : [
       {
         id: 'req-201',
@@ -141,7 +170,7 @@ export const AppProvider = ({ children }) => {
         endDate: '2026-11-08',
         durationDays: 2,
         totalPayout: 1700,
-        status: 'pending', // 'pending', 'approved', 'declined'
+        status: 'pending',
         createdAt: '1 hour ago',
         purpose: 'Weekend wedding cinematography in Indiranagar'
       }
@@ -222,6 +251,7 @@ export const AppProvider = ({ children }) => {
   // Toast Helper
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
+
     setTimeout(() => {
       setToast(null);
     }, 3800);
@@ -248,9 +278,11 @@ export const AppProvider = ({ children }) => {
 
   const navigateTo = (view, extra = {}) => {
     setActiveView(view);
+
     if (extra.tab) setDashboardTab(extra.tab);
     if (extra.productId) setSelectedProductId(extra.productId);
     if (extra.category) setSelectedCategory(extra.category);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -273,7 +305,7 @@ export const AppProvider = ({ children }) => {
       dailyRate: bookingProduct.pricePerDay,
       totalAmount: bookingData.totalPrice,
       depositAmount: bookingProduct.securityDeposit,
-      status: 'approved', // instant demo approval
+      status: 'approved',
       handoverCode: 'RENT-' + Math.floor(1000 + Math.random() * 9000) + '-QR',
       handoverVerified: false,
       deliveryMethod: bookingData.deliveryMethod
@@ -292,6 +324,7 @@ export const AppProvider = ({ children }) => {
       }
       return req;
     }));
+
     showToast('Rental request approved! Renter notified.', 'success');
   };
 
@@ -302,6 +335,7 @@ export const AppProvider = ({ children }) => {
       }
       return req;
     }));
+
     showToast('Rental request declined.', 'info');
   };
 
@@ -327,6 +361,7 @@ export const AppProvider = ({ children }) => {
         bio: 'Local verified host sharing equipment with neighbors.'
       }
     });
+
     setProducts([item, ...products]);
     showToast(`"${item.title}" successfully published!`, 'success');
     navigateTo('marketplace');
@@ -341,8 +376,10 @@ export const AppProvider = ({ children }) => {
           ...conv.messages,
           { sender: 'me', text, time: 'Just now' }
         ];
+
         return { ...conv, messages: updatedMessages };
       }
+
       return conv;
     }));
 
@@ -356,7 +393,9 @@ export const AppProvider = ({ children }) => {
             "Got it! Feel free to call or ping me if you need directions to the pickup spot.",
             "Confirmed! I've set aside the accessories as well."
           ];
+
           const randomReply = autoReplies[Math.floor(Math.random() * autoReplies.length)];
+
           return {
             ...conv,
             messages: [
@@ -365,6 +404,7 @@ export const AppProvider = ({ children }) => {
             ]
           };
         }
+
         return conv;
       }));
     }, 1500);
@@ -372,6 +412,7 @@ export const AppProvider = ({ children }) => {
 
   const loginDemo = (role = 'renter') => {
     setIsLoggedIn(true);
+
     if (role === 'lender') {
       setCurrentUser({
         id: 'user-lender',
@@ -403,6 +444,7 @@ export const AppProvider = ({ children }) => {
         upiId: 'yashsharma@okhdfcbank'
       });
     }
+
     setIsAuthModalOpen(false);
     setActiveView('feed');
     showToast(`Logged in successfully as ${role === 'lender' ? 'Rahul (Lender)' : 'Yash (Renter)'}!`);
@@ -411,6 +453,7 @@ export const AppProvider = ({ children }) => {
   const logout = () => {
     setIsLoggedIn(false);
     setActiveView('home');
+    setSelectedLandingRole(null);
     showToast('Signed out successfully.', 'info');
   };
 
@@ -420,6 +463,12 @@ export const AppProvider = ({ children }) => {
         activeView,
         setActiveView,
         navigateTo,
+
+        // Landing role selection
+        selectedLandingRole,
+        setSelectedLandingRole,
+        selectLandingRole,
+
         selectedProductId,
         setSelectedProductId,
         navigateToProduct,
@@ -470,4 +519,3 @@ export const AppProvider = ({ children }) => {
 };
 
 export const useApp = () => useContext(AppContext);
-
