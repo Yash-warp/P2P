@@ -54,7 +54,7 @@ export const Navbar = () => {
       {/* Floating Slim & Rounded Pill Navbar */}
       <nav className="fixed top-0 inset-x-0 z-[100] transition-all duration-300 py-3.5 sm:py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="relative flex items-center justify-between px-4 sm:px-6 h-[54px] rounded-full transition-all duration-300 bg-[#FAF8FF]/85 backdrop-blur-xl border border-[#E9D5FF]/90 shadow-neu-pill">
+          <div className="relative flex items-center justify-between px-4 sm:px-6 h-[54px] rounded-full transition-all duration-300 bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_0_rgba(48,16,94,0.07)]">
             
             {/* Brand Logo - Left */}
             <a 
@@ -141,7 +141,7 @@ export const Navbar = () => {
                   <div className="relative">
                     <button
                       onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                      className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-[#30105E] bg-[#FAF8FF] border border-[#E9D5FF] shadow-neu-pill hover:bg-[#E9D5FF]/50 active:scale-95 transition-all"
+                      className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-[#30105E] bg-white/50 hover:bg-white/80 border border-white/60 shadow-xs active:scale-95 transition-all"
                     >
                       <img 
                         src={currentUser.avatar} 
@@ -223,7 +223,7 @@ export const Navbar = () => {
                     setAuthMode('login');
                     setIsAuthModalOpen(true);
                   }}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold text-[#30105E] bg-[#FAF8FF] hover:bg-[#E9D5FF]/60 border border-[#E9D5FF] shadow-neu-pill hover:shadow-neu-pressed active:scale-95 transition-all"
+                  className="px-4 py-1.5 rounded-full text-xs font-bold text-[#30105E] bg-white/50 hover:bg-white/80 border border-white/60 shadow-xs hover:border-white/90 active:scale-95 transition-all"
                 >
                   Sign In
                 </button>
@@ -241,7 +241,7 @@ export const Navbar = () => {
             {/* Mobile Hamburger Button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-full bg-[#FAF8FF] text-[#30105E] border border-[#E9D5FF] shadow-neu-pill active:shadow-neu-pressed transition-all"
+              className="md:hidden p-2 rounded-full bg-white/50 text-[#30105E] border border-white/60 shadow-xs active:scale-95 transition-all"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
