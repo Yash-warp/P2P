@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const NearbyPreview = () => {
   const {
     products,
-    navigateToProduct,
+    openProductCardModal,
     openBookingModal,
     toggleWishlist,
     isWishlisted,
@@ -425,7 +425,7 @@ export const NearbyPreview = () => {
 
                     {/* TITLE */}
                     <h3
-                      onClick={() => navigateToProduct(product.id)}
+                      onClick={() => openProductCardModal(product)}
                       className="font-display font-bold text-sm sm:text-base text-[#30105E] line-clamp-2 hover:text-[#7C3AED] cursor-pointer transition-colors"
                     >
                       {product.title}

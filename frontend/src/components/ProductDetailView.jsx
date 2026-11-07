@@ -68,30 +68,30 @@ export const ProductDetailView = () => {
   const similarItems = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 3);
 
   return (
-    <div className={`min-h-screen ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
+    <div className={`min-h-screen bg-gradient-to-b from-[#DFC5FE]/55 via-[#EEDBFE]/40 to-[#DFC5FE]/30 text-[#30105E] ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Breadcrumb & Navigation */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E9D5FF] text-xs">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#DFC5FE] text-xs">
           <button
-            onClick={() => navigateTo('marketplace')}
+            onClick={() => navigateTo('home')}
             className="flex items-center gap-1 font-bold text-[#30105E]/80 hover:text-[#30105E] transition-colors"
           >
             <ChevronLeft className="w-4 h-4 text-[#7C3AED]" />
-            <span>Back to Marketplace</span>
+            <span>Back</span>
           </button>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="p-2 rounded-xl bg-white border border-[#E9D5FF] text-[#30105E] hover:bg-[#FAF8FF] shadow-2xs"
+              className="p-2 rounded-xl bg-white/90 border border-[#DFC5FE] text-[#30105E] hover:bg-white shadow-2xs"
               title="Share Listing"
             >
               <Share2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => toggleWishlist(product.id)}
-              className="p-2 rounded-xl bg-white border border-[#E9D5FF] text-[#30105E] hover:bg-[#FAF8FF] shadow-2xs"
+              className="p-2 rounded-xl bg-white/90 border border-[#DFC5FE] text-[#30105E] hover:bg-white shadow-2xs"
               title="Wishlist"
             >
               <Heart className={`w-4 h-4 ${wishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />

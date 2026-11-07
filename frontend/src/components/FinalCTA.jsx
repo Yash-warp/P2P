@@ -337,7 +337,7 @@ export const FinalCTA = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 md:py-28 relative overflow-hidden"
+      className="pt-4 pb-14 md:pt-6 md:pb-20 relative overflow-hidden"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
 
@@ -366,7 +366,7 @@ export const FinalCTA = () => {
           </div>
 
           {/* HEADING */}
-          <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-[#30105E] tracking-tight leading-[1.12]">
+          <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-[#30105E] tracking-tight leading-[1.24] sm:leading-[1.28]">
 
             <span
               ref={headingFirstRef}
@@ -377,15 +377,15 @@ export const FinalCTA = () => {
 
             <span
               ref={headingSecondRef}
-              className="block mt-2"
+              className="block mt-2 sm:mt-3"
             >
               Start borrowing from{' '}
 
               <span
                 ref={highlightRef}
-                className="relative inline-block"
+                className="relative inline-block align-middle my-1 sm:my-0"
               >
-                <span className="bg-[#C4B5FD] text-[#30105E] px-4 py-1 rounded-3xl shadow-neu-pill">
+                <span className="inline-block bg-[#C4B5FD] text-[#30105E] px-3.5 sm:px-5 py-0.5 sm:py-1 rounded-2xl sm:rounded-3xl shadow-neu-pill">
                   neighbors.
                 </span>
               </span>
@@ -439,7 +439,7 @@ export const FinalCTA = () => {
 
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#7C3AED]" />
-              <span>RBI Regulated Escrow</span>
+              <span>Zero Middleman Fees</span>
             </div>
 
             <div className="flex items-center gap-1.5">

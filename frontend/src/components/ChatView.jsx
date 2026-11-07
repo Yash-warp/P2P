@@ -41,7 +41,7 @@ export const ChatView = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
+    <div className={`min-h-screen bg-gradient-to-b from-[#DFC5FE]/55 via-[#EEDBFE]/40 to-[#DFC5FE]/30 text-[#30105E] ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Navigation Breadcrumb */}

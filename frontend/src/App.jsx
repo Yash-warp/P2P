@@ -1,5 +1,5 @@
 
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useApp } from './context/AppContext';
 
 import gsap from 'gsap';
@@ -11,16 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
+import { ProductCardModal } from './components/ProductCardModal';
 import { AuthModal } from './components/AuthModal';
 
 // Homepage Sections
 import { Hero } from './components/Hero';
-import { NearbyPreview } from './components/NearbyPreview';
-import { ActivityTicker } from './components/ActivityTicker';
 import { TrendingListings } from './components/TrendingListings';
 import { OwnerEarningsCalculator } from './components/OwnerEarningsCalculator';
 import { HowItWorks } from './components/HowItWorks';
-import { TrustSafety } from './components/TrustSafety';
 import { Testimonials } from './components/Testimonials';
 import { AppDownloadCTA } from './components/AppDownloadCTA';
 import { FinalCTA } from './components/FinalCTA';
@@ -54,17 +52,90 @@ import {
 // ---------------------------------------------
 
 const RoleSelection = () => {
-  const { selectLandingRole } = useApp();
+  const { selectLandingRole, setSelectedLandingRole, setActiveView } = useApp();
+
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const sectionRef = useRef(null);
   const backgroundRef = useRef(null);
-  const badgeRef = useRef(null);
   const headingRef = useRef(null);
   const descriptionRef = useRef(null);
   const cardsRef = useRef([]);
   const trustRef = useRef(null);
   const iconRefs = useRef([]);
   const arrowRefs = useRef([]);
+
+  const handleRoleClick = (role, cardIndex) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+
+    const otherIndex = cardIndex === 0 ? 1 : 0;
+    const selectedCard = cardsRef.current[cardIndex];
+    const otherCard = cardsRef.current[otherIndex];
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        if (role === 'borrower') {
+          setSelectedLandingRole('borrower');
+          setActiveView('feed');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          selectLandingRole(role);
+        }
+      }
+    });
+
+    // 1. Immediately fade unselected card out
+    if (otherCard) {
+      tl.to(otherCard, {
+        opacity: 0,
+        scale: 0.94,
+        y: 15,
+        duration: 0.22,
+        ease: 'power2.in'
+      }, 0);
+    }
+
+    // 2. Animate selected card: brief press & smooth zoom dissolve
+    if (selectedCard) {
+      tl.to(selectedCard, {
+        scale: 1.025,
+        boxShadow: '0 25px 60px rgba(124, 58, 237, 0.35)',
+        duration: 0.16,
+        ease: 'power2.out'
+      }, 0)
+      .to(selectedCard, {
+        opacity: 0,
+        scale: 1.05,
+        y: -10,
+        duration: 0.26,
+        ease: 'power2.in'
+      }, 0.14);
+    }
+
+    // 3. Fade out heading, description, trust bar
+    tl.to(
+      [headingRef.current, descriptionRef.current, trustRef.current],
+      {
+        opacity: 0,
+        y: -15,
+        stagger: 0.03,
+        duration: 0.22,
+        ease: 'power2.in'
+      },
+      0
+    );
+
+    // 4. Background gentle blur and fade
+    if (backgroundRef.current) {
+      tl.to(backgroundRef.current, {
+        opacity: 0.15,
+        scale: 1.04,
+        duration: 0.35,
+        ease: 'power2.inOut'
+      }, 0);
+    }
+  };
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -78,12 +149,6 @@ const RoleSelection = () => {
       const trustItems = gsap.utils.toArray('.role-trust-item');
 
       // Initial states
-      gsap.set(badgeRef.current, {
-        opacity: 0,
-        y: 25,
-        scale: 0.8
-      });
-
       gsap.set(headingWords, {
         opacity: 0,
         y: 65,
@@ -122,14 +187,6 @@ const RoleSelection = () => {
       });
 
       entrance
-        .to(badgeRef.current, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.7,
-          ease: 'back.out(1.8)'
-        })
-
         .to(headingWords, {
           opacity: 1,
           y: 0,
@@ -138,7 +195,7 @@ const RoleSelection = () => {
           duration: 0.9,
           stagger: 0.09,
           ease: 'power4.out'
-        }, '-=0.3')
+        })
 
         .to(descriptionRef.current, {
           opacity: 1,
@@ -312,14 +369,14 @@ const RoleSelection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[calc(100svh-72px)] flex flex-col justify-center items-center px-4 py-12 sm:py-16 overflow-hidden isolate"
+      className="relative min-h-screen w-full flex flex-col justify-center items-center px-4 pt-24 pb-12 sm:pt-28 sm:pb-14 md:pt-32 md:pb-16 overflow-hidden isolate"
     >
 
       {/* SCENIC BACKGROUND */}
 
       <div
         ref={backgroundRef}
-        className="absolute inset-0 -z-20 bg-cover bg-center"
+        className="absolute -top-12 -bottom-12 -left-8 -right-8 -z-20 bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2400&q=90')"
@@ -336,20 +393,7 @@ const RoleSelection = () => {
 
       {/* HERO CONTENT */}
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto text-center">
-
-        {/* Welcome Badge */}
-
-        <div
-          ref={badgeRef}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/55 backdrop-blur-xl border border-white/70 shadow-lg mb-7"
-        >
-          <Sparkles className="w-4 h-4 text-[#6D28D9]" />
-
-          <span className="text-xs sm:text-sm font-semibold text-[#30105E]">
-            Welcome to Lendit India
-          </span>
-        </div>
+      <div className="relative z-10 w-full max-w-6xl mx-auto text-center pt-2 sm:pt-4">
 
         {/* Main Heading */}
 
@@ -389,8 +433,8 @@ const RoleSelection = () => {
 
           <button
             ref={(el) => (cardsRef.current[0] = el)}
-            onClick={() => selectLandingRole('borrower')}
-            className="group relative flex flex-col sm:flex-row min-h-[245px] overflow-hidden rounded-[30px] border border-white/80 bg-white/65 backdrop-blur-xl shadow-[0_15px_50px_rgba(45,25,60,0.13)] hover:shadow-[0_25px_65px_rgba(45,25,60,0.22)] transition-shadow duration-500 text-left"
+            onClick={() => handleRoleClick('borrower', 0)}
+            className="group relative flex flex-col sm:flex-row min-h-[245px] overflow-hidden rounded-[30px] border border-white/80 bg-white/65 backdrop-blur-xl shadow-[0_15px_50px_rgba(45,25,60,0.13)] hover:shadow-[0_25px_65px_rgba(45,25,60,0.22)] transition-shadow duration-500 text-left cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
           >
 
@@ -453,8 +497,8 @@ const RoleSelection = () => {
 
           <button
             ref={(el) => (cardsRef.current[1] = el)}
-            onClick={() => selectLandingRole('lender')}
-            className="group relative flex flex-col sm:flex-row min-h-[245px] overflow-hidden rounded-[30px] border border-white/80 bg-white/65 backdrop-blur-xl shadow-[0_15px_50px_rgba(45,25,60,0.13)] hover:shadow-[0_25px_65px_rgba(45,25,60,0.22)] transition-shadow duration-500 text-left"
+            onClick={() => handleRoleClick('lender', 1)}
+            className="group relative flex flex-col sm:flex-row min-h-[245px] overflow-hidden rounded-[30px] border border-white/80 bg-white/65 backdrop-blur-xl shadow-[0_15px_50px_rgba(45,25,60,0.13)] hover:shadow-[0_25px_65px_rgba(45,25,60,0.22)] transition-shadow duration-500 text-left cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
           >
 
@@ -585,7 +629,7 @@ export function App() {
     <div className="min-h-screen flex flex-col bg-[#FAF8FF] text-[#30105E] selection:bg-[#C4B5FD] selection:text-[#30105E] font-body antialiased">
 
       {/* Navbar */}
-      {!isLoggedIn && <Navbar />}
+      {!isLoggedIn && activeView !== 'feed' && <Navbar />}
 
       {/* Main Content */}
       <main className="flex-1">
@@ -596,18 +640,16 @@ export function App() {
         {/* Logged In Feed */}
         {activeView === 'feed' && <FeedView />}
 
-        {/* BORROWER LANDING PAGE */}
+        {/* BORROWER LANDING PAGE (OVERVIEW) */}
         {activeView === 'home' && selectedLandingRole === 'borrower' && (
           <>
             <Hero />
-            <NearbyPreview />
-            <ActivityTicker />
             <TrendingListings />
             <HowItWorks />
-            <TrustSafety />
             <Testimonials />
             <AppDownloadCTA />
             <FinalCTA />
+            <Footer />
           </>
         )}
 
@@ -616,9 +658,9 @@ export function App() {
           <>
             <OwnerEarningsCalculator />
             <HowItWorks />
-            <TrustSafety />
             <Testimonials />
             <FinalCTA />
+            <Footer />
           </>
         )}
 
@@ -639,14 +681,17 @@ export function App() {
 
       </main>
 
-      {/* Footer */}
-      {!isLoggedIn && <Footer />}
+      {/* Footer (hidden on landing page as requested) */}
+      {!isLoggedIn && activeView !== 'feed' && activeView !== 'home' && activeView !== 'lender-home' && !showRoleSelection && <Footer />}
 
       {/* Bottom Navigation */}
-      {isLoggedIn && <BottomNavBar />}
+      {(isLoggedIn || activeView === 'feed') && <BottomNavBar />}
 
       {/* Booking Modal */}
       <BookingModal />
+
+      {/* Product Detail Card Modal */}
+      <ProductCardModal />
 
       {/* Authentication Modal */}
       <AuthModal />

@@ -14,7 +14,7 @@ export const BottomNavBar = () => {
   const isListActive = activeView === 'list-item';
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#FAF8FF]/95 backdrop-blur-2xl border-t border-[#E9D5FF] shadow-[0_-4px_25px_rgba(48,16,94,0.06)]">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-2xl border-t border-[#DFC5FE] shadow-[0_-4px_25px_rgba(48,16,94,0.06)] animate-fade-scale">
       <div className="max-w-lg mx-auto flex items-center justify-around py-2 px-3 relative">
         
         {/* Tab 1: HOME */}

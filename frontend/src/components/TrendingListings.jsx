@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const TrendingListings = () => {
   const {
     products,
-    navigateToProduct,
+    openProductCardModal,
     openBookingModal,
     toggleWishlist,
     isWishlisted,
@@ -233,12 +233,12 @@ export const TrendingListings = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-24 relative"
+      className="pt-6 pb-12 md:pt-8 md:pb-16 relative"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* SECTION HEADER */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8">
 
           <div>
 
@@ -285,13 +285,13 @@ export const TrendingListings = () => {
             return (
               <div
                 key={product.id}
-                className="trending-product-card group rounded-[28px] bg-white border border-[#E9D5FF] shadow-neu-pill hover:shadow-2xl hover:border-[#7C3AED]/60 transition-shadow duration-300 flex flex-col overflow-hidden"
+                className="trending-product-card group rounded-[28px] bg-white border border-[#DFC5FE] shadow-neu-pill hover:shadow-2xl hover:border-[#7C3AED]/60 transition-shadow duration-300 flex flex-col overflow-hidden"
                 style={{ transformOrigin: 'center center' }}
               >
 
                 {/* IMAGE */}
                 <div
-                  onClick={() => navigateToProduct(product.id)}
+                  onClick={() => openProductCardModal(product)}
                   className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 cursor-pointer"
                 >
 
@@ -319,11 +319,10 @@ export const TrendingListings = () => {
                       title={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
                       <Heart
-                        className={`trending-icon w-4 h-4 ${
-                          wishlisted
+                        className={`trending-icon w-4 h-4 ${wishlisted
                             ? 'fill-rose-500 text-rose-500'
                             : ''
-                        }`}
+                          }`}
                       />
                     </button>
 
@@ -380,7 +379,7 @@ export const TrendingListings = () => {
 
                     {/* TITLE */}
                     <h3
-                      onClick={() => navigateToProduct(product.id)}
+                      onClick={() => openProductCardModal(product)}
                       className="font-display font-bold text-base sm:text-lg text-[#30105E] hover:text-[#7C3AED] cursor-pointer line-clamp-1 transition-colors"
                     >
                       {product.title}
@@ -394,7 +393,7 @@ export const TrendingListings = () => {
                   </div>
 
                   {/* PRICING & ACTIONS */}
-                  <div className="mt-5 pt-4 border-t border-[#E9D5FF]/60 flex items-center justify-between">
+                  <div className="mt-5 pt-4 border-t border-[#DFC5FE]/60 flex items-center justify-between">
 
                     <div>
 
@@ -416,8 +415,8 @@ export const TrendingListings = () => {
 
                       {/* DETAILS */}
                       <button
-                        onClick={() => navigateToProduct(product.id)}
-                        className="trending-card-button px-3 py-2 rounded-xl border border-[#E9D5FF] hover:bg-[#FAF8FF] text-[#30105E] font-semibold text-xs transition-colors"
+                        onClick={() => openProductCardModal(product)}
+                        className="trending-card-button px-3 py-2 rounded-xl border border-[#DFC5FE] hover:bg-[#FAF8FF] text-[#30105E] font-semibold text-xs transition-colors"
                       >
                         Details
                       </button>

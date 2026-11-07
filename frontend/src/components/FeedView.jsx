@@ -14,7 +14,8 @@ import {
   User, 
   CheckCircle2, 
   Heart,
-  ChevronDown
+  ChevronDown,
+  UserPlus
 } from 'lucide-react';
 
 export const FeedView = () => {
@@ -29,7 +30,10 @@ export const FeedView = () => {
     isWishlisted,
     currentUser,
     conversations,
-    showToast
+    showToast,
+    isLoggedIn,
+    setIsAuthModalOpen,
+    setAuthMode
   } = useApp();
 
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -125,10 +129,10 @@ export const FeedView = () => {
   const unreadCount = conversations.reduce((acc, c) => acc + (c.unread ? 1 : 0), 0);
 
   return (
-    <div className="min-h-screen bg-[#FAF8FF] text-[#30105E] pb-24 selection:bg-[#C4B5FD] selection:text-[#30105E]">
+    <div className="min-h-screen bg-gradient-to-b from-[#DFC5FE]/55 via-[#EEDBFE]/40 to-[#DFC5FE]/30 text-[#30105E] pb-24 selection:bg-[#C4B5FD] selection:text-[#30105E] animate-fade-scale">
       
       {/* Exact Lendit Feed Sticky Header */}
-      <header className="sticky top-0 z-40 bg-[#FAF8FF]/90 backdrop-blur-2xl px-4 sm:px-6 pt-5 pb-3.5 border-b border-[#E9D5FF]/70 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-2xl px-4 sm:px-6 pt-5 pb-3.5 border-b border-[#DFC5FE]/70 shadow-xs animate-fade-down">
         <div className="max-w-6xl mx-auto">
           
           {/* Top Row: Title, Location and Actions */}
@@ -154,8 +158,8 @@ export const FeedView = () => {
               </div>
             </div>
 
-            {/* Right Action Icons: Location Pin + Filter Toggle */}
-            <div className="flex items-center gap-2">
+            {/* Right Action Icons: Location Pin + Filter Toggle + Sign Up */}
+            <div className="flex items-center gap-2 sm:gap-2.5">
               <button
                 onClick={() => setLocationPickerOpen(!locationPickerOpen)}
                 className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all ${
@@ -179,6 +183,20 @@ export const FeedView = () => {
               >
                 <SlidersHorizontal size={18} />
               </button>
+
+              {!isLoggedIn && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthMode('signup');
+                    setIsAuthModalOpen(true);
+                  }}
+                  className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-display font-bold text-xs sm:text-sm shadow-[0_4px_14px_rgba(124,58,237,0.35)] hover:shadow-[0_6px_20px_rgba(124,58,237,0.45)] active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ml-1"
+                >
+                  <UserPlus size={15} className="text-white/90" />
+                  <span>Sign Up</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -282,73 +300,76 @@ export const FeedView = () => {
       </header>
 
       {/* Main Feed Container */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-5">
+      <main className="max-w-6xl mx-auto px-3 sm:px-6 py-5">
         
-        {/* "Get Verified" Promo Banner (Dismissible) */}
-        {!bannerDismissed && (
-          <div className="mb-5 bg-[#FAF8FF] border border-[#E9D5FF] rounded-2xl p-4 flex items-center justify-between shadow-xs">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#E9D5FF] rounded-xl flex items-center justify-center shrink-0">
-                <Shield size={20} className="text-[#7C3AED]" />
-              </div>
-              <div>
-                <p className="text-[#30105E] text-sm font-display font-bold">
-                  Get DigiLocker Verified
-                </p>
-                <p className="text-[#30105E]/70 text-[11px] font-body mt-0.5">
-                  Completely free verification! Boost your gear trust score to 100%.
-                </p>
-              </div>
-            </div>
+        {/* Light Lavender Gradient Section Container */}
+        <div className="rounded-[28px] sm:rounded-[36px] p-4 sm:p-7 bg-gradient-to-b from-[#DFC5FE]/45 via-[#EADBFE]/30 to-[#FAF8FF]/60 border border-[#DFC5FE]/60 shadow-[0_12px_40px_rgba(223,197,254,0.3)] backdrop-blur-sm">
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => {
-                  if (showToast) showToast('success', 'Your DigiLocker ID is already 100% verified!');
-                }}
-                className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-3.5 py-2 rounded-xl text-xs font-display font-bold whitespace-nowrap shadow-[0_2px_8px_rgba(124,58,237,0.25)] active:scale-95 transition-transform"
-              >
-                Verify
-              </button>
-              <button
-                onClick={() => setBannerDismissed(true)}
-                className="p-1.5 text-[#30105E]/50 hover:text-[#30105E] hover:bg-[#E9D5FF]/50 rounded-full transition-colors"
-                aria-label="Dismiss banner"
-              >
-                <X size={16} />
-              </button>
+          {/* "Get Verified" Promo Banner (Dismissible) */}
+          {!bannerDismissed && (
+            <div className="mb-5 bg-white/90 backdrop-blur-md border border-[#DFC5FE] rounded-2xl p-4 flex items-center justify-between shadow-xs">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#DFC5FE]/50 rounded-xl flex items-center justify-center shrink-0">
+                  <Shield size={20} className="text-[#7C3AED]" />
+                </div>
+                <div>
+                  <p className="text-[#30105E] text-sm font-display font-bold">
+                    Get DigiLocker Verified
+                  </p>
+                  <p className="text-[#30105E]/70 text-[11px] font-body mt-0.5">
+                    Completely free verification! Boost your gear trust score to 100%.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => {
+                    if (showToast) showToast('success', 'Your DigiLocker ID is already 100% verified!');
+                  }}
+                  className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-3.5 py-2 rounded-xl text-xs font-display font-bold whitespace-nowrap shadow-[0_2px_8px_rgba(124,58,237,0.25)] active:scale-95 transition-transform cursor-pointer"
+                >
+                  Verify
+                </button>
+                <button
+                  onClick={() => setBannerDismissed(true)}
+                  className="p-1.5 text-[#30105E]/50 hover:text-[#30105E] hover:bg-[#DFC5FE]/40 rounded-full transition-colors"
+                  aria-label="Dismiss banner"
+                >
+                  <X size={16} />
+                </button>
+              </div>
             </div>
+          )}
+
+          {/* Results Count & Match Status */}
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-[11px] font-display uppercase tracking-wider text-[#30105E]/80 font-bold">
+              {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} • Best matches near you
+            </p>
+
+            <span className="text-[11px] font-bold text-[#7C3AED] bg-white/90 px-3 py-1 rounded-full border border-[#DFC5FE] shadow-2xs">
+              {selectedCategory === 'All' ? 'All Categories' : selectedCategory}
+            </span>
           </div>
-        )}
 
-        {/* Results Count & Match Status */}
-        <div className="flex items-center justify-between mb-3.5">
-          <p className="text-[11px] font-display uppercase tracking-wider text-[#30105E]/70 font-bold">
-            {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} • Best matches near you
-          </p>
+          {/* Product Cards Grid - 1:1 Lendit Grid Layout */}
+          {filteredProducts.length > 0 ? (
+            <>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                {filteredProducts.map((p) => {
+                  const wish = isWishlisted(p.id);
+                  const itemImg = (Array.isArray(p.images) && p.images[0]) || p.image || getFallbackImage(p.category);
+                  const isOwnerVerified = p.owner?.verified || p.owner?.verifiedId;
+                  const reviewCount = p.reviewCount || p.reviewsCount || 24;
+                  const distanceVal = p.distance !== undefined ? p.distance : (p.distanceKm !== undefined ? p.distanceKm : 1.2);
 
-          <span className="text-[11px] font-medium text-[#7C3AED] bg-[#E9D5FF] px-2.5 py-0.5 rounded-full border border-[#C4B5FD]">
-            {selectedCategory === 'All' ? 'All Categories' : selectedCategory}
-          </span>
-        </div>
-
-        {/* Product Cards Grid - 1:1 Lendit Grid Layout */}
-        {filteredProducts.length > 0 ? (
-          <>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {filteredProducts.map((p) => {
-                const wish = isWishlisted(p.id);
-                const itemImg = (Array.isArray(p.images) && p.images[0]) || p.image || getFallbackImage(p.category);
-                const isOwnerVerified = p.owner?.verified || p.owner?.verifiedId;
-                const reviewCount = p.reviewCount || p.reviewsCount || 24;
-                const distanceVal = p.distance !== undefined ? p.distance : (p.distanceKm !== undefined ? p.distanceKm : 1.2);
-
-                return (
-                  <div
-                    key={p.id}
-                    onClick={() => navigateToProduct(p.id)}
-                    className="bg-white rounded-2xl overflow-hidden border border-[#E9D5FF]/80 shadow-xs hover:shadow-lg hover:border-[#7C3AED]/50 transition-all duration-300 block group cursor-pointer flex flex-col justify-between"
-                  >
+                  return (
+                    <div
+                      key={p.id}
+                      onClick={() => navigateToProduct(p.id)}
+                      className="bg-white rounded-2xl overflow-hidden border border-[#DFC5FE]/80 shadow-[0_4px_16px_rgba(223,197,254,0.18)] hover:shadow-xl hover:border-[#7C3AED]/60 transition-all duration-300 block group cursor-pointer flex flex-col justify-between"
+                    >
                     {/* Image Area - Aspect 4/3 */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#FAF8FF]">
                       <img
@@ -485,6 +506,7 @@ export const FeedView = () => {
           </div>
         )}
 
+        </div>
       </main>
     </div>
   );

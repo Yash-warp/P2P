@@ -151,8 +151,8 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#escrow" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">
-                  Escrow & Refund Rules
+                <a href="#handover-rules" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">
+                  Peer Handover Guidelines
                 </a>
               </li>
               <li>

@@ -23,31 +23,16 @@ export const Navbar = () => {
     setIsAuthModalOpen, 
     setAuthMode,
     wishlist, 
-    conversations 
+    conversations,
+    selectedLandingRole,
+    setSelectedLandingRole,
+    selectLandingRole
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   const unreadMessagesCount = conversations.reduce((acc, c) => acc + (c.unread ? 1 : 0), 0);
-
-  const handleScrollTo = (sectionId) => {
-    setMobileMenuOpen(false);
-    if (activeView !== 'home') {
-      navigateTo('home');
-      setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 150);
-    } else {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   return (
     <>
@@ -64,6 +49,7 @@ export const Navbar = () => {
                 if (isLoggedIn) {
                   navigateTo('feed');
                 } else {
+                  setSelectedLandingRole(null);
                   navigateTo('home');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -78,38 +64,37 @@ export const Navbar = () => {
 
             {/* Nav Links - Exact Middle Alignment */}
             <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
-              <a 
-                href="#how-it-works"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('how-it-works');
+              <button 
+                type="button"
+                onClick={() => {
+                  setSelectedLandingRole(null);
+                  navigateTo('home');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="text-sm font-semibold text-[#30105E]/80 hover:text-[#7C3AED] transition-colors whitespace-nowrap"
+                className={`text-sm transition-colors whitespace-nowrap cursor-pointer ${
+                  activeView === 'home' && selectedLandingRole === null
+                    ? 'font-bold text-[#7C3AED]' 
+                    : 'font-semibold text-[#30105E]/80 hover:text-[#7C3AED]'
+                }`}
               >
-                How it Works
-              </a>
+                Home
+              </button>
 
-              <a 
-                href="#features"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('features');
+              <button 
+                type="button"
+                onClick={() => {
+                  setSelectedLandingRole('borrower');
+                  setActiveView('home');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="text-sm font-bold text-[#7C3AED] hover:text-[#6D28D9] transition-colors whitespace-nowrap"
+                className={`text-sm transition-colors whitespace-nowrap cursor-pointer ${
+                  activeView === 'home' && selectedLandingRole === 'borrower'
+                    ? 'font-bold text-[#7C3AED]' 
+                    : 'font-semibold text-[#30105E]/80 hover:text-[#7C3AED]'
+                }`}
               >
-                Features
-              </a>
-
-              <a 
-                href="#testimonials"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('testimonials');
-                }}
-                className="text-sm font-semibold text-[#30105E]/80 hover:text-[#7C3AED] transition-colors whitespace-nowrap"
-              >
-                Testimonials
-              </a>
+                Overview
+              </button>
             </div>
 
             {/* Actions - Right */}
@@ -269,38 +254,39 @@ export const Navbar = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <a
-                href="#how-it-works"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('how-it-works');
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSelectedLandingRole(null);
+                  navigateTo('home');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#E9D5FF]/40 text-sm font-semibold text-[#30105E] transition-colors"
+                className={`w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#E9D5FF]/40 text-sm transition-colors cursor-pointer ${
+                  activeView === 'home' && selectedLandingRole === null
+                    ? 'font-bold text-[#7C3AED] bg-[#E9D5FF]/30' 
+                    : 'font-semibold text-[#30105E]'
+                }`}
               >
-                How it Works
-              </a>
+                Home
+              </button>
 
-              <a
-                href="#features"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('features');
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSelectedLandingRole('borrower');
+                  setActiveView('home');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#E9D5FF]/40 text-sm font-bold text-[#7C3AED] transition-colors"
+                className={`w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#E9D5FF]/40 text-sm transition-colors cursor-pointer ${
+                  activeView === 'home' && selectedLandingRole === 'borrower'
+                    ? 'font-bold text-[#7C3AED] bg-[#E9D5FF]/30' 
+                    : 'font-semibold text-[#30105E]'
+                }`}
               >
-                Features
-              </a>
-
-              <a
-                href="#testimonials"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleScrollTo('testimonials');
-                }}
-                className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#E9D5FF]/40 text-sm font-semibold text-[#30105E] transition-colors"
-              >
-                Testimonials
-              </a>
+                Overview
+              </button>
 
               <button
                 onClick={() => {

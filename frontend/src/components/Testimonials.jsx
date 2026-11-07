@@ -272,14 +272,14 @@ export const Testimonials = () => {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-16 md:py-24 bg-[#E9D5FF]/20 border-t border-[#E9D5FF] overflow-hidden"
+      className="py-10 md:py-14 bg-[#E9D5FF]/20 border-t border-[#E9D5FF] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* SECTION HEADER */}
         <div
           ref={headerRef}
-          className="text-center max-w-3xl mx-auto mb-14"
+          className="text-center max-w-3xl mx-auto mb-8 sm:mb-10"
         >
           <div
             ref={badgeRef}

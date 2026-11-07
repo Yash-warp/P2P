@@ -6,7 +6,6 @@ import {
   CalendarCheck, 
   Inbox, 
   Heart, 
-  IndianRupee, 
   Bell, 
   ShieldCheck, 
   QrCode, 
@@ -52,13 +51,6 @@ export const DashboardView = () => {
   // Filter listings owned by current user
   const myListings = products.filter(p => p.owner.id === currentUser.id || p.owner.name === currentUser.name);
 
-  // Total earnings calculation
-  const totalEarnings = 48500;
-  const pendingPayouts = 3400;
-
-  const handleWithdrawFunds = () => {
-    showToast(`Withdrawal request of ₹${currentUser.walletBalance} sent to ${currentUser.upiId}! Payout within 2 hrs.`, 'success');
-  };
 
   const handleDeleteListing = (id, title) => {
     if (window.confirm(`Are you sure you want to remove "${title}"?`)) {
@@ -78,11 +70,11 @@ export const DashboardView = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
+    <div className={`min-h-screen bg-gradient-to-b from-[#DFC5FE]/55 via-[#EEDBFE]/40 to-[#DFC5FE]/30 text-[#30105E] ${isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* User Overview Top Banner */}
-        <div className="p-6 sm:p-8 rounded-[32px] bg-white border border-[#E9D5FF] shadow-neu-pill mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="p-6 sm:p-8 rounded-[32px] bg-white/95 backdrop-blur-md border border-[#DFC5FE] shadow-neu-pill mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="relative">
               <img
@@ -131,14 +123,13 @@ export const DashboardView = () => {
         </div>
 
         {/* Dashboard Navigation Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none border-b border-[#E9D5FF]">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none border-b border-[#DFC5FE]">
           {[
             { id: 'overview', label: 'Overview', icon: Sparkles },
             { id: 'rentals', label: `My Rentals (${myRentals.length})`, icon: CalendarCheck },
             { id: 'requests', label: `Requests (${rentalRequests.filter(r => r.status === 'pending').length})`, icon: Inbox },
             { id: 'listings', label: `My Gear (${myListings.length})`, icon: Package },
             { id: 'wishlist', label: `Wishlist (${wishlist.length})`, icon: Heart },
-            { id: 'earnings', label: 'Earnings & Payouts', icon: IndianRupee },
             { id: 'notifications', label: 'Notifications', icon: Bell },
             { id: 'profile', label: 'Profile Settings', icon: User }
           ].map((tab) => {
@@ -151,7 +142,7 @@ export const DashboardView = () => {
                 className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${
                   isActive
                     ? 'bg-[#30105E] text-white shadow-md'
-                    : 'bg-white hover:bg-[#FAF8FF] text-[#30105E] border border-[#E9D5FF] shadow-2xs'
+                    : 'bg-white/85 hover:bg-white text-[#30105E] border border-[#DFC5FE] shadow-2xs'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-[#C4B5FD]' : 'text-[#7C3AED]'}`} />
@@ -169,15 +160,15 @@ export const DashboardView = () => {
             {/* Stat Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
               <div className="p-5 rounded-3xl bg-white border border-[#E9D5FF] shadow-neu-pill">
-                <span className="text-xs font-semibold text-[#30105E]/60 uppercase tracking-wider block">Total Wallet Balance</span>
+                <span className="text-xs font-semibold text-[#30105E]/60 uppercase tracking-wider block">Rental Requests</span>
                 <div className="font-display font-black text-2xl sm:text-3xl text-[#30105E] mt-1">
-                  ₹{currentUser.walletBalance.toLocaleString('en-IN')}
+                  {rentalRequests.filter(r => r.status === 'pending').length}
                 </div>
                 <button 
-                  onClick={handleWithdrawFunds}
+                  onClick={() => setDashboardTab('requests')}
                   className="mt-3 text-xs font-bold text-[#7C3AED] hover:underline flex items-center gap-1"
                 >
-                  Withdraw to UPI <ArrowUpRight className="w-3.5 h-3.5" />
+                  Review Requests <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -532,88 +523,6 @@ export const DashboardView = () => {
           </div>
         )}
 
-        {/* 6. EARNINGS & PAYOUTS TAB */}
-        {dashboardTab === 'earnings' && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-[#30105E] via-[#230b45] to-[#30105E] text-white shadow-xl border border-[#E9D5FF]/30">
-                <span className="text-xs font-semibold text-[#E9D5FF] uppercase tracking-wider block">Available Balance</span>
-                <div className="font-display font-black text-4xl text-[#C4B5FD] mt-2">
-                  ₹{currentUser.walletBalance.toLocaleString('en-IN')}
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#E9D5FF]">
-                  <span>Linked UPI: <strong>{currentUser.upiId}</strong></span>
-                </div>
-                <button
-                  onClick={handleWithdrawFunds}
-                  className="mt-4 w-full py-3 rounded-xl bg-[#7C3AED] text-white font-bold text-xs hover:bg-[#6D28D9] transition-all shadow-sm"
-                >
-                  Instant Withdraw Funds
-                </button>
-              </div>
-
-              <div className="p-6 rounded-3xl bg-white border border-[#E9D5FF] shadow-neu-pill">
-                <span className="text-xs font-semibold text-[#30105E]/60 uppercase tracking-wider block">All-Time Earnings</span>
-                <div className="font-display font-black text-3xl text-[#30105E] mt-2">
-                  ₹{totalEarnings.toLocaleString('en-IN')}
-                </div>
-                <p className="text-xs text-[#30105E]/70 mt-2">
-                  From 18 completed rental transactions
-                </p>
-                <div className="mt-4 pt-4 border-t border-[#E9D5FF]/60 flex items-center gap-1.5 text-xs text-[#7C3AED] font-bold">
-                  <CheckCircle2 className="w-4 h-4" /> 100% On-time Escrow Payouts
-                </div>
-              </div>
-
-              <div className="p-6 rounded-3xl bg-white border border-[#E9D5FF] shadow-neu-pill">
-                <span className="text-xs font-semibold text-[#30105E]/60 uppercase tracking-wider block">Security Escrow Held</span>
-                <div className="font-display font-black text-3xl text-[#30105E] mt-2">
-                  ₹7,000
-                </div>
-                <p className="text-xs text-[#30105E]/70 mt-2">
-                  Held safely in RBI escrow for 2 currently ongoing gear rentals
-                </p>
-              </div>
-            </div>
-
-            {/* Payout History Table */}
-            <div className="p-6 rounded-[32px] bg-white border border-[#E9D5FF] shadow-neu-pill">
-              <h4 className="font-display font-bold text-lg text-[#30105E] mb-4">Payout Transaction History</h4>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="border-b border-[#E9D5FF] text-[#7C3AED] uppercase font-bold text-[10px]">
-                      <th className="pb-3">Date</th>
-                      <th className="pb-3">Gear Rented</th>
-                      <th className="pb-3">Renter</th>
-                      <th className="pb-3">Method</th>
-                      <th className="pb-3 text-right">Amount</th>
-                      <th className="pb-3 text-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#E9D5FF]/60 text-[#30105E]/80 font-medium">
-                    <tr>
-                      <td className="py-3">Oct 28, 2026</td>
-                      <td className="py-3 font-bold text-[#30105E]">Sony Alpha A7 III</td>
-                      <td className="py-3">Kunal B.</td>
-                      <td className="py-3">UPI Instant</td>
-                      <td className="py-3 text-right font-bold text-[#7C3AED]">+₹2,550</td>
-                      <td className="py-3 text-right"><span className="px-2 py-0.5 rounded bg-[#E9D5FF] text-[#30105E] text-[10px] font-bold">Settled</span></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3">Oct 22, 2026</td>
-                      <td className="py-3 font-bold text-[#30105E]">DJI Mini 3 Pro Drone</td>
-                      <td className="py-3">Ankit S.</td>
-                      <td className="py-3">HDFC IMPS</td>
-                      <td className="py-3 text-right font-bold text-[#7C3AED]">+₹3,240</td>
-                      <td className="py-3 text-right"><span className="px-2 py-0.5 rounded bg-[#E9D5FF] text-[#30105E] text-[10px] font-bold">Settled</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* 7. NOTIFICATIONS TAB */}
         {dashboardTab === 'notifications' && (

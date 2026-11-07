@@ -376,7 +376,7 @@ export const MarketplaceView = () => {
   return (
     <div
       ref={marketplaceRef}
-      className={`min-h-screen ${
+      className={`min-h-screen bg-gradient-to-b from-[#DFC5FE]/55 via-[#EEDBFE]/40 to-[#DFC5FE]/30 text-[#30105E] ${
         isLoggedIn ? 'pt-6 pb-24' : 'pt-28 pb-20'
       }`}
     >
@@ -405,7 +405,7 @@ export const MarketplaceView = () => {
 
           {/* VIEW MODE */}
           <div className="flex items-center gap-2">
-            <div className="p-1 rounded-2xl bg-white border border-[#E9D5FF] shadow-neu-pill flex items-center">
+            <div className="p-1 rounded-2xl bg-white/90 backdrop-blur-md border border-[#DFC5FE] shadow-neu-pill flex items-center">
 
               <button
                 onClick={() => setViewMode('grid')}
@@ -438,7 +438,7 @@ export const MarketplaceView = () => {
         {/* SEARCH AND FILTER BAR */}
         <div
           data-market-reveal
-          className="p-4 rounded-3xl bg-white border border-[#E9D5FF] shadow-neu-pill mb-8"
+          className="p-4 sm:p-5 rounded-3xl bg-gradient-to-br from-[#DFC5FE]/75 via-[#EEDBFE]/50 to-white/90 border border-[#DFC5FE] shadow-[0_15px_40px_rgba(223,197,254,0.4)] backdrop-blur-xl mb-8"
         >
           <div className="flex flex-col md:flex-row items-center gap-3">
 
@@ -451,7 +451,7 @@ export const MarketplaceView = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search gear title, brand, or model..."
-                className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-[#FAF8FF] border border-[#E9D5FF] text-xs sm:text-sm font-medium text-[#30105E] placeholder:text-[#30105E]/50 focus:outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all duration-300 focus:shadow-lg focus:shadow-purple-100"
+                className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-white/95 border border-[#DFC5FE] text-xs sm:text-sm font-medium text-[#30105E] placeholder:text-[#30105E]/50 focus:outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all duration-300 focus:shadow-lg focus:shadow-purple-100"
               />
 
               {searchQuery && (
@@ -466,7 +466,7 @@ export const MarketplaceView = () => {
 
             {/* SORT */}
             <div className="w-full md:w-auto flex items-center gap-2">
-              <div className="flex items-center gap-1.5 px-3.5 py-2.5 bg-[#FAF8FF] border border-[#E9D5FF] rounded-2xl w-full md:w-auto transition-all duration-300 hover:shadow-md hover:border-[#7C3AED]/50">
+              <div className="flex items-center gap-1.5 px-3.5 py-2.5 bg-white/95 border border-[#DFC5FE] rounded-2xl w-full md:w-auto transition-all duration-300 hover:shadow-md hover:border-[#7C3AED]/60">
                 <ArrowUpDown className="w-3.5 h-3.5 text-[#7C3AED]" />
 
                 <select
@@ -485,7 +485,7 @@ export const MarketplaceView = () => {
           </div>
 
           {/* QUICK FILTERS */}
-          <div className="mt-4 pt-3 border-t border-[#E9D5FF]/60 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div className="mt-4 pt-3 border-t border-[#DFC5FE]/80 flex flex-wrap items-center justify-between gap-4 text-xs">
 
             {/* CATEGORY CHIPS */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-2xl scrollbar-none">
@@ -497,7 +497,7 @@ export const MarketplaceView = () => {
                   className={`px-3 py-1.5 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap hover:scale-105 hover:-translate-y-0.5 active:scale-95 ${
                     selectedCategory === c.id
                       ? 'bg-[#7C3AED] text-white shadow-xs font-bold'
-                      : 'bg-[#FAF8FF] hover:bg-[#E9D5FF]/60 text-[#30105E] border border-[#E9D5FF]/70'
+                      : 'bg-white/85 hover:bg-white text-[#30105E] border border-[#DFC5FE]'
                   }`}
                 >
                   {c.name}
@@ -543,7 +543,7 @@ export const MarketplaceView = () => {
           </div>
 
           {/* SLIDERS */}
-          <div className="mt-4 pt-3 border-t border-[#E9D5FF]/60 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="mt-4 pt-3 border-t border-[#DFC5FE]/80 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             {/* DISTANCE */}
             <div>
@@ -561,7 +561,7 @@ export const MarketplaceView = () => {
                 max={25}
                 value={maxDistance}
                 onChange={(e) => setMaxDistance(Number(e.target.value))}
-                className="w-full accent-[#7C3AED] h-1.5 bg-[#E9D5FF] rounded-lg cursor-pointer"
+                className="w-full accent-[#7C3AED] h-1.5 bg-[#DFC5FE] rounded-lg cursor-pointer"
               />
             </div>
 
@@ -582,7 +582,7 @@ export const MarketplaceView = () => {
                 step={100}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-[#7C3AED] h-1.5 bg-[#E9D5FF] rounded-lg cursor-pointer"
+                className="w-full accent-[#7C3AED] h-1.5 bg-[#DFC5FE] rounded-lg cursor-pointer"
               />
             </div>
           </div>
@@ -805,7 +805,7 @@ export const MarketplaceView = () => {
                 <div
                   key={product.id}
                   data-market-card
-                  className="group relative rounded-[28px] bg-white border border-[#E9D5FF] shadow-neu-pill hover:shadow-[0_25px_60px_rgba(48,16,94,0.18)] hover:border-[#7C3AED]/70 transition-[box-shadow,border-color] duration-500 flex flex-col overflow-hidden will-change-transform"
+                  className="group relative rounded-[28px] bg-white/95 backdrop-blur-md border border-[#DFC5FE] shadow-neu-pill hover:shadow-[0_25px_60px_rgba(48,16,94,0.18)] hover:border-[#7C3AED]/70 transition-[box-shadow,border-color] duration-500 flex flex-col overflow-hidden will-change-transform"
                 >
                   {/* PRODUCT IMAGE */}
                   <div
@@ -944,9 +944,9 @@ export const MarketplaceView = () => {
         {viewMode === 'grid' && filteredProducts.length === 0 && (
           <div
             data-market-empty
-            className="p-12 text-center rounded-[32px] bg-white border border-[#E9D5FF] shadow-neu-pill max-w-lg mx-auto"
+            className="p-12 text-center rounded-[32px] bg-white/95 backdrop-blur-md border border-[#DFC5FE] shadow-neu-pill max-w-lg mx-auto"
           >
-            <div className="w-16 h-16 rounded-full bg-[#FAF8FF] border border-[#E9D5FF] flex items-center justify-center mx-auto text-[#7C3AED] mb-4 transition-transform duration-500 hover:scale-110 hover:rotate-12">
+            <div className="w-16 h-16 rounded-full bg-[#FAF8FF] border border-[#DFC5FE] flex items-center justify-center mx-auto text-[#7C3AED] mb-4 transition-transform duration-500 hover:scale-110 hover:rotate-12">
               <Search className="w-8 h-8" />
             </div>
 

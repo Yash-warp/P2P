@@ -28,6 +28,7 @@ export const AppProvider = ({ children }) => {
   const [authMode, setAuthMode] = useState('login');
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingProduct, setBookingProduct] = useState(null);
+  const [cardModalProduct, setCardModalProduct] = useState(null);
   const [toast, setToast] = useState(null);
 
   // User State
@@ -291,6 +292,14 @@ export const AppProvider = ({ children }) => {
     setIsBookingModalOpen(true);
   };
 
+  const openProductCardModal = (product) => {
+    setCardModalProduct(product);
+  };
+
+  const closeProductCardModal = () => {
+    setCardModalProduct(null);
+  };
+
   const createBooking = (bookingData) => {
     const newRental = {
       id: 'rent-' + Date.now(),
@@ -509,6 +518,10 @@ export const AppProvider = ({ children }) => {
         setIsBookingModalOpen,
         bookingProduct,
         openBookingModal,
+        cardModalProduct,
+        setCardModalProduct,
+        openProductCardModal,
+        closeProductCardModal,
         toast,
         showToast
       }}
